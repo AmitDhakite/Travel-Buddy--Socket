@@ -1,11 +1,15 @@
 const dotenv = require("dotenv");
-
+const express = require("express");
+const Cors = require("cors");
+const app = express();
 dotenv.config();
 const io = require("socket.io")(process.env.PORT, {
   cors: {
     origin: "https://travelbudddy.netlify.app",
   },
 });
+app.use(express.json());
+app.use(Cors());
 
 let users = [];
 
@@ -44,4 +48,7 @@ io.on("connection", (socket) => {
     io.emit("getUsers", users);
     console.log("A user disconnected");
   });
+});
+app.listen(process.env.PORT1, function () {
+  console.log("listening on localhost:" + process.env.PORT1);
 });
